@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_network/image_network.dart';
 import 'package:simple_weather/app/core/enums.dart';
 import 'package:simple_weather/data/remote_data_sources/weather_remote_data_source.dart';
 import 'package:simple_weather/domain/models/weather_model.dart';
@@ -71,21 +72,28 @@ class _DisplayWeatherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
+        String imageUrl = weatherModel.icon.toString();
+        debugPrint(weatherModel.icon.toString());
         return Column(
           children: [
             Text(
               weatherModel.temperature.toString(),
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.headline2,
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 10),
             Text(
               weatherModel.city,
               style: Theme.of(context).textTheme.headline2,
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
             Text(weatherModel.country.toString(),
                 style: const TextStyle(fontSize: 20)),
-            const SizedBox(height: 60),
+            const SizedBox(height: 10),
+            Image.network(
+              "https:${weatherModel.icon.toString()}",
+              height: 100,
+              width: 100,
+            ),
           ],
         );
       },
